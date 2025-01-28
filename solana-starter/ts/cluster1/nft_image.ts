@@ -16,15 +16,24 @@ umi.use(signerIdentity(signer));
 (async () => {
     try {
         //1. Load image
+        const image = await readFile("./generug.png");
+
+
         //2. Convert image to generic file.
+        // we do this with arweave
+        const genericFile = createGenericFile(image, "rug.png", {contentType: "image/png"});
+
         //3. Upload image
+        const [myUri] = await umi.uploader.upload([genericFile]);
 
-        // const image = ???
-
-        // const [myUri] = ??? 
-        // console.log("Your image URI: ", myUri);
+        const correct_uri = myUri.replace("https://arweave.net/", "https://devnet.irys.xyz/");
+        console.log("Your image URI: ", correct_uri);
     }
     catch(error) {
         console.log("Oops.. Something went wrong", error);
     }
 })();
+
+
+// 
+// Your image URI:  https://devnet.irys.xyz/DQi4HA6fMvzfLFUpppn4PUBy3z7MEUdEQiry572nExgx

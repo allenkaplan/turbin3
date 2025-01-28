@@ -44,7 +44,7 @@ mod tests {
         
         
 
-    use solana_program::{system_instruction::transfer};
+    use solana_program::system_instruction::transfer;
     use std::str::FromStr;
 
     #[test]
@@ -135,7 +135,7 @@ mod tests {
         println!("{}", keypair.pubkey().to_string());
     }
 
-    use crate::programs::Turbin3_prereq::{Turbin3PrereqProgram, CompleteArgs,UpdateArgs};
+    use crate::programs::turbin3_prereq::{Turbin3PrereqProgram, CompleteArgs};
 
 
     #[test]

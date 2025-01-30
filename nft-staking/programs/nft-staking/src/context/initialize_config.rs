@@ -1,20 +1,20 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, Token};
 
+use crate::state::StakeConfig;
+
 #[derive(Accounts)]
 pub struct InitializeConfig<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
-
     #[account(
-        init,
+        init, 
         payer = admin,
         seeds = [b"config".as_ref()],
         bump,
         space = 8 + StakeConfig::INIT_SPACE,
     )]
     pub config: Account<'info, StakeConfig>,
-
     #[account(
         init_if_needed,
         payer = admin,
@@ -29,15 +29,15 @@ pub struct InitializeConfig<'info> {
 }
 
 impl<'info> InitializeConfig<'info> {
-    pub fn initialize_config(&mut self, ctx: Context<InitializeConfig>, points_per_stake: u8, max_stake: u8, freeze_period: u32, bumps: &InitializeConfigBumps) -> Result<()> {
+    pub fn initialize_config(&mut self, points_per_stake: u8, max_stake: u8, freeze_period: u32, bumps: &InitializeConfigBumps) -> Result<()> {
         self.config.set_inner(StakeConfig {
             points_per_stake,
             max_stake,
             freeze_period,
-            rewards_bump: bumps.rewards,
+            rewards_bump: bumps.rewards_mint,
             bump: bumps.config,
         });
+
         Ok(())
     }
 }
-

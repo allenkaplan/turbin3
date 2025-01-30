@@ -7,5 +7,5 @@ pub struct StakeConfig {
     pub max_stake: u8,
     pub freeze_period: u32,
     pub rewards_bump: u8,
-    pub treasury_bump: u8,
+    pub bump: u8,
 }
